@@ -1,0 +1,5 @@
+Buen día:
+
+Puedo concluir que utilizar Karate, resulta ser bastante sencillo y he aprendido a diferenciar cuando usar rest-assured, además de que posee una gran versatilida.
+
+Cordial saludo.

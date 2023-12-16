@@ -1,0 +1,50 @@
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:3.1.10")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+
+dependencies {
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    implementation group: 'net.serenity-bdd', name: 'serenity-core', version: '4.0.24'
+    implementation 'net.serenity-bdd:serenity-junit:4.0.24'
+    implementation 'net.serenity-bdd:serenity-cucumber:4.0.24'
+    implementation 'com.google.guava:guava:23.0'
+    compileOnly 'org.projectlombok:lombok:1.18.10'
+}
+
+test {
+     testLogging {
+        showStandardStreams = true
+     }
+     testLogging.showStandardStreams = true
+     gradle.startParameter.continueOnFailure = true
+     /* Pass all system properties: */
+     systemProperties System.getProperties()
+     test.finalizedBy(aggregate)
+}
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+gradle.startParameter.continueOnFailure = true
